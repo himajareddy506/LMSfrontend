@@ -1,0 +1,58 @@
+<div>
+  <mat-sidenav-container class="sidenav-container" style="position: absolute !important;
+  width: -webkit-fill-available !important;">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport="false"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="!(isHandset$ | async)">
+      <mat-toolbar color="primary">
+        <!-- <img style="height: 75px; width: 100px; border-radius: 50px;" src="../../../assets/images/ing-client-logo.png"> -->
+        &nbsp;&nbsp;
+        <mat-label style="color: white; font-size: 16px;">Book Lending System</mat-label>
+      </mat-toolbar>
+
+      <!--Mobile Menu--->
+      <mat-nav-list *ngIf="isHandset$ | async">
+        <a mat-list-item routerLink="/dashboard" [routerLinkActive]="'is-active'" (click)="drawer.toggle()">Available
+          Books</a>
+        <a mat-list-item routerLink="/borrowhistory" [routerLinkActive]="'is-active'" (click)="drawer.toggle()">Borrow
+          Book History</a>
+        <a mat-list-item routerLink="/lendhistory" [routerLinkActive]="'is-active'" (click)="drawer.toggle()">Lend Book
+          History</a>
+      </mat-nav-list>
+
+      <!--Web Menu--->
+      <mat-nav-list *ngIf="!(isHandset$ | async)">
+        <a mat-list-item routerLink="/dashboard" [routerLinkActive]="'is-active'">Available Books</a>
+        <a mat-list-item routerLink="/borrowhistory" [routerLinkActive]="'is-active'">Borrow Book History</a>
+        <a mat-list-item routerLink="/lendhistory" [routerLinkActive]="'is-active'">Lend Book History</a>
+      </mat-nav-list>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <mat-toolbar color="primary">
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async">
+          <mat-icon [ngStyle]="{'color':'white'}" aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <!-- <img style="width: 50px; height: 50px; border-radius: 20px;" src="">-->
+        <span style="color: white">{{userName}}</span>
+        <span class="filler"></span>
+
+        <button mat-button [matMenuTriggerFor]="setting" style="color: white">
+          <mat-label>User Profile</mat-label>
+        </button>
+        <mat-menu #setting="matMenu">
+          <button mat-menu-item routerLink="/profile" [routerLinkActive]="'is-active'">Profile</button>
+          <button mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
+
+      </mat-toolbar>
+
+      <router-outlet></router-outlet>
+
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+</div>

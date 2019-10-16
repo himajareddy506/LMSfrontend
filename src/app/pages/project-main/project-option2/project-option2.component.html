@@ -1,0 +1,51 @@
+<div class="container">
+  <br>
+  <div class="row">
+    <div class="col-lg-6">
+      <mat-card>
+        <canvas id="mylineChart1"></canvas>
+      </mat-card>
+    </div>
+    <div class="col-lg-6">
+      <mat-card>
+        <canvas id="mylineChart2"></canvas>
+      </mat-card>
+    </div>
+  </div>
+
+  <br><br><br>
+
+
+  <div class="row">
+    <div class="col-lg-6">
+      <mat-card>
+        <canvas id="mylineChart3"></canvas>
+      </mat-card>
+    </div>
+    <div class="col-lg-6">
+      <mat-card>
+        <canvas id="mylineChart4"></canvas>
+      </mat-card>
+    </div>
+
+  </div>
+  <br>
+  <div class="row">
+    <mat-card-title>Top 10 Stock List</mat-card-title>
+    <br>
+    <div class="col-lg-4" *ngFor="let list of tabledata">
+      <br>
+      <mat-card *ngIf="list.trending">
+        <mat-card-title>{{list.stockName}}</mat-card-title>
+        <mat-card-content>
+          Exchange : {{list.stockExchangeName}}
+          <br>
+          % Change : {{list.stockPercentage}}
+          <br>
+          CMP : {{list.price}}
+        </mat-card-content>
+      </mat-card>
+      <br>
+    </div>
+  </div>
+</div>

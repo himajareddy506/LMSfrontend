@@ -1,0 +1,64 @@
+/* You can add global styles to this file, and also import other style files */
+//@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "my-theme";
+
+html,body{
+  height: 100%;
+}
+
+.space {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+button:focus, button:active:focus, button.active:focus {
+  outline: none !important;
+  outline-style: none !important;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+/*Background*/
+/*:host {
+  background-color: green;
+  size: 200px 200px;
+  display: block;
+  width: 100%;
+}*/
+
+.makecenter :host ::ng-deep .mat-sort-header-container {
+  display: flex;
+  justify-content: center;
+}
+
+mat-header-cell, mat-cell {
+  justify-content: center;
+  flex: 0 0 200px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: lightgrey;
+}
+
+/* offsets the header by the same amount of size/padding the sort button occupies */
+/*.mat-sort-header-container {
+  margin-left: 14px;
+}*/
+
+.mat-row, .mat-header-row {
+  border-bottom-width: 0px;
+}
+
+table {
+  width: 100%;
+}
+
+mat-table {
+  overflow-x: scroll;
+}
+
+// <link rel="preload" href="styles.5e0771754e7c553a2b88.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="styles.5e0771754e7c553a2b88.css"></noscript>
+

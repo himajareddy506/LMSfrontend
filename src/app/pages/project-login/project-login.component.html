@@ -1,0 +1,48 @@
+<mat-toolbar color="primary" style="color: white;">
+  <mat-toolbar-row>
+    <span>Book Lending System</span>
+    <span class="space"></span>
+    <span><button style="background-color: orange; color: white" mat-raised-button
+        (click)="openDialog('Register')">Register</button></span>
+    &nbsp;&nbsp;
+    <span><button style="background-color: orange; color: white" mat-raised-button
+        (click)="openDialog('Login')">Login</button></span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="row">
+  <div class="col-lg-3"></div>
+  <div class="col-lg-6">
+    <mat-card style="margin-top: 10px;">
+      <mat-card-title style="align-content: center">Login</mat-card-title>
+      <form [formGroup]="loginForm" autocomplete="off" novalidate (ngSubmit)="login(loginForm.value)">
+        <mat-card-content>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Enter User Name</mat-label>
+            <input matInput type="text" placeholder="User Name" formControlName="userId" id="userId">
+            <mat-hint align="end">Not more then 10 characters long.</mat-hint>
+            <mat-error *ngIf="hasLoginError('userId', 'required')">User Name is required</mat-error>
+            <mat-error *ngIf="hasLoginError('userId', 'maxlength')">You have more than 10 characters</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Enter Password</mat-label>
+            <input matInput type="password" placeholder="Password" formControlName="password" id="password">
+            <mat-hint align="end">Not more then 10 characters long.</mat-hint>
+            <mat-error *ngIf="hasLoginError('password', 'required')">Password is required</mat-error>
+            <mat-error *ngIf="hasLoginError('password', 'maxlength')">You have more than 10 characters</mat-error>
+          </mat-form-field>
+        </mat-card-content>
+
+        <mat-card-actions align="center">
+          <span style="color: red" *ngIf="display !=undefined">{{display}}</span><br>
+          <button mat-raised-button color="primary" [disabled]="!loginForm.valid">Login</button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+
+
+  </div>
+  <div class="col-lg-3"></div>
+</div>

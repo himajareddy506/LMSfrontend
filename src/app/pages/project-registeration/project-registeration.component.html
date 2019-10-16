@@ -1,0 +1,85 @@
+<mat-toolbar color="primary" style="color: white;">
+  <mat-toolbar-row>
+    <span>Book Lending System</span>
+    <span class="space"></span>
+    <span><button style="background-color: orange; color: white" mat-raised-button
+        (click)="openDialog('Register')">Register</button></span>
+    &nbsp;&nbsp;
+    <span><button style="background-color: orange; color: white" mat-raised-button
+        (click)="openDialog('Login')">Login</button></span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3">
+      <img src="" style="height: 100px; width: 200px;" class="img-fluid" alt="">
+    </div>
+    <div class="col-lg-6">
+      <mat-card style="margin-top: 10px;">
+        <mat-card-title style="align-content: center">Registeration</mat-card-title>
+        <form [formGroup]="regForm" autocomplete="off" novalidate (ngSubmit)="newRegsiteration(regForm.value)">
+          <mat-card-content>
+            <mat-form-field appearance="outline">
+              <mat-label>Enter First Name</mat-label>
+              <input matInput type="text" placeholder="First name" formControlName="fname" id="fname">
+              <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+              <mat-error *ngIf="hasError('fname', 'required')">First Name is required</mat-error>
+              <mat-error *ngIf="hasError('fname', 'maxlength')">You have more than 10 characters</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Enter Last Name Name</mat-label>
+              <input matInput type="text" placeholder="Last name" formControlName="lname" id="lname">
+              <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+              <mat-error *ngIf="hasError('lname', 'required')">Last Name is required</mat-error>
+              <mat-error *ngIf="hasError('lname', 'maxlength')">You have more than 10 characters</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Enter Mobile Number</mat-label>
+              <input matInput type="number" placeholder="Mobile Number" formControlName="mobile" id="mobile">
+              <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+              <mat-error *ngIf="hasError('mobile', 'required')">Mobile Number is required</mat-error>
+              <mat-error *ngIf="hasError('mobile', 'maxlength')">You have more than 10 characters</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Enter Email</mat-label>
+              <input matInput type="text" placeholder="Email" formControlName="email" id="email">
+              <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+              <mat-error *ngIf="hasError('email', 'required')">Last Name is required</mat-error>
+              <mat-error *ngIf="hasError('email', 'maxlength')">You have more than 10 characters</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Enter Password</mat-label>
+              <input matInput type="password" placeholder="Password" formControlName="password" id="password">
+              <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+              <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
+              <mat-error *ngIf="hasError('password', 'maxlength')">You have more than 10 characters</mat-error>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+              <mat-label>Confirm Password</mat-label>
+              <input matInput type="password" placeholder="First name" formControlName="cpassword" id="cpassword">
+              <mat-hint align="end">Not more then 60 characters long.</mat-hint>
+              <mat-error *ngIf="hasError('cpassword', 'required')">Confirm password is required</mat-error>
+              <mat-error *ngIf="hasError('cpassword', 'maxlength')">You have more than 10 characters</mat-error>
+            </mat-form-field>
+          </mat-card-content>
+
+          <mat-card-actions align="center">
+            <button mat-raised-button color="primary" [disabled]="!regForm.valid">Register</button>
+            <button class="mat-ok" type="button" mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+          </mat-card-actions>
+        </form>
+      </mat-card>
+    </div>
+
+    <div class="col-lg-3" style="margin-top: 20px;">
+      <img src="" class="img-fluid" alt="">
+    </div>
+  </div>
+</div>

@@ -18,6 +18,7 @@
           Book History</a>
         <a mat-list-item routerLink="/lendhistory" [routerLinkActive]="'is-active'" (click)="drawer.toggle()">Lend Book
           History</a>
+        <a mat-list-item routerLink="/addbook" [routerLinkActive]="'is-active'" (click)="drawer.toggle()">Add Book</a>
       </mat-nav-list>
 
       <!--Web Menu--->
@@ -25,6 +26,7 @@
         <a mat-list-item routerLink="/dashboard" [routerLinkActive]="'is-active'">Available Books</a>
         <a mat-list-item routerLink="/borrowhistory" [routerLinkActive]="'is-active'">Borrow Book History</a>
         <a mat-list-item routerLink="/lendhistory" [routerLinkActive]="'is-active'">Lend Book History</a>
+        <a mat-list-item routerLink="/addbook" [routerLinkActive]="'is-active'">Add Book</a>
       </mat-nav-list>
 
     </mat-sidenav>
@@ -39,13 +41,13 @@
         <span style="color: white">{{userName}}</span>
         <span class="filler"></span>
 
-        <button mat-button [matMenuTriggerFor]="setting" style="color: white">
-          <mat-label>User Profile</mat-label>
+        <!-- <button mat-button [matMenuTriggerFor]="setting" style="color: white">
+          <mat-label>Settings</mat-label>
         </button>
-        <mat-menu #setting="matMenu">
-          <button mat-menu-item routerLink="/profile" [routerLinkActive]="'is-active'">Profile</button>
-          <button mat-menu-item (click)="logout()">Logout</button>
-        </mat-menu>
+        <mat-menu #setting="matMenu"> -->
+        <button mat-button routerLink="/profile" [routerLinkActive]="'is-active'" style="color: white">Profile</button>
+        <button mat-button (click)="logout()" style="color: white">Logout</button>
+        <!-- </mat-menu> -->
 
       </mat-toolbar>
 

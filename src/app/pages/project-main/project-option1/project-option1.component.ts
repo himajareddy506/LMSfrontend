@@ -3,6 +3,9 @@ import { MatDialog, MatPaginator, MatSnackBar, MatSort, MatTableDataSource } fro
 import { FormBuilder } from "@angular/forms";
 import { ProjectDialog1Component } from "../../project-dialog/project-dialog1/project-dialog1.component";
 import { CommunicationServiceService } from "../../../service/communication_service/communication-service.service";
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 export interface PeriodicElement {
   payeeId: string;
@@ -18,7 +21,7 @@ export interface PeriodicElement {
 })
 export class ProjectOption1Component implements OnInit {
 
-  displayedColumns: string[] = ['position', 'name', 'percentage', 'action'];
+  displayedColumns: string[] = ['Id', 'position', 'name', 'action'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   dataSource: any;
@@ -26,66 +29,71 @@ export class ProjectOption1Component implements OnInit {
   accountBalance: any;
 
   responseResult: any;
+  userId: number;
+  err: boolean;
 
-  constructor(private dialog: MatDialog, private fb: FormBuilder, private _snackBar: MatSnackBar, private _service: CommunicationServiceService) {
+  constructor(private router: Router,
+    private route: Router,
+    private http: HttpClient,
+    private dialog: MatDialog,
+    private fb: FormBuilder,
+    private _snackBar: MatSnackBar,
+    private _service: CommunicationServiceService) {
   }
 
   ngOnInit() {
-    this.accountBalance = localStorage.getItem('balance');
-    this.getDetails();
+    // this.userId = sessionStorage.getItem('userId');
+    // this.getDetails();
+    this.http
+      .get(environment.baseUrl + '/lms/api/books')
+      .subscribe((res: Response) => {
+        console.log(res);
+        this.dataSource = res['bookList']
+        this.dataSource = new MatTableDataSource<PeriodicElement>(this.dataSource);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        sessionStorage.setItem("userId", sessionStorage.getItem('userId'));
+
+
+      }, (err) => {
+        this.err = true;
+        console.log("rerror", err)
+        alert(err.message);
+      });
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+
+  applyFilter = (filterValue: string) => {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
   }
 
-  openSnackBar(message: string, action: string) {
+  openSnackBar = (message: string, action: string) => {
     this._snackBar.open(message, action, {
       duration: 3000,
     });
   }
 
-  async getDetails() {
-    //this.tabledata = await this._service.getListOfAvailableStocks();
-    /* this.tabledata = [{
-       stockId: '1',
-       stockName: '2',
-       price: 'double',
-       quantity: 'Integer',
-       stockPercentage: '13.09%',
-       trending: 'String',
-       stockExchangeName: 'String'
-     }, {
-       stockId: '1',
-       stockName: '2',
-       price: 'double',
-       quantity: 'Integer',
-       stockPercentage: '5.9%',
-       trending: 'String',
-       stockExchangeName: 'String'
-     }, {
-       stockId: '1',
-       stockName: '2',
-       price: 'double',
-       quantity: 'integer',
-       stockPercentage: 'Integer',
-       trending: 'String',
-       stockExchangeName: 'String'
-     }];*/
-    this.dataSource = new MatTableDataSource<PeriodicElement>(this.tabledata);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+
+
+  borrowBook = (element, bookName, author, bookId) => {
+    this.openDialogQuantity(element, bookName, author, bookId, 'borrow');
   }
 
-  buyStock(element, stockName, stockId, stockExchangeName, quantity, price) {
-    this.openDialogQuantity(element);
+  releaseBook = (element, bookName, author, bookId) => {
+    this.openDialogQuantity(element, bookName, author, bookId, 'request');
   }
 
-  openDialogQuantity(element): void {
+  addBook = () => {
+    this.route.navigate(['/addbook']);
+  }
+  openDialogQuantity = (element, bookName, author, bookId, action): void => {
     const dialogRef = this.dialog.open(ProjectDialog1Component, {
-      height: '400px',
-      width: '600px',
-      data: { location: element, fromComponent: 'stocks' }
+      height: 'auto',
+      width: 'auto',
+      data: { location: element, fromComponent: action }
     });
 
     dialogRef.afterClosed().subscribe(result => {

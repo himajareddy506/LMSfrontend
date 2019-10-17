@@ -2,10 +2,9 @@
     <div class="row">
         <div class="col-lg-12">
             <mat-card-title style="align-content: center">Borrow Book History</mat-card-title>
-            <br><br><br>
+            <br><br>
             <div class="mat-elevation-z8">
                 <table>
-
                     <tr>
                         <th>Book Name
                         </th>
@@ -16,16 +15,16 @@
                         <th>Released Date
 
                     </tr>
-                    <!-- <tr *ngFor="let account of accountHistory">
-                        <td>{{account.transactionDate}}
+                    <tr *ngFor="let summary of borrowSummary">
+                        <td>{{summary.bookName}}
                         </td>
-                        <td>{{account.toAccount}}
+                        <td>{{summary.author}}
                         </td>
-                        <td>{{account.transactionType}}
+                        <td>{{summary.borrowDate}}
                         </td>
-                        <td>{{account.amount}}
+                        <td>{{summary.releaseDate}}
                         </td>
-                    </tr> -->
+                    </tr>
                 </table>
                 <mat-paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons></mat-paginator>
             </div>

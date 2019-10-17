@@ -7,6 +7,7 @@ import { CommonModule } from "@angular/common";
 import { BorrowHistoryComponent } from './borrow-history/borrow-history.component';
 import { BookListComponent } from './book-list/book-list.component';
 import { LendHistoryComponent } from './lend-history/lend-history.component';
+import { AddBookComponent } from './add-book/add-book.component';
 // import { ProjectOption3Component } fro./project-option3/lend-history.componentponent";
 
 
@@ -28,6 +29,10 @@ const routes: Routes = [{
   {
     path: 'lendhistory',
     component: LendHistoryComponent
+  },
+  {
+    path: 'addbook',
+    component: AddBookComponent
   },
   {
     path: 'profile',

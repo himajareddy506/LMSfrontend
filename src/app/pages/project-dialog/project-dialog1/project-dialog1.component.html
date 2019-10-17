@@ -1,69 +1,37 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-12" *ngIf="!formShow">
-      <mat-card>
-        <form [formGroup]="chooseForm" autocomplete="off" novalidate (ngSubmit)="confirm(chooseForm.value)">
-          <mat-card-title>Place Order</mat-card-title>
-          <mat-label>Summary : <br>Stock Name : {{this.data.location.stockName}} <br>
-            Order Price : ₹ {{this.data.location.price}} / - </mat-label>
-          <br><br>
-          <mat-card-content>
-           <!-- <mat-form-field appearance="outline">
-              <mat-label>Enter Product Price</mat-label>
-              <input matInput type="text" placeholder="Product Price" formControlName="productPrice" id="productPrice">
-              <mat-hint align="end">Not more then 10 characters long.</mat-hint>
-              <mat-error *ngIf="hasError('productPrice', 'required')">Product Price is required</mat-error>
-              <mat-error *ngIf="hasError('productPrice', 'maxlength')">You have more than 10 characters</mat-error>
-            </mat-form-field>-->
 
-            <mat-form-field appearance="outline">
-              <mat-label>Select Quantity</mat-label>
-              <input matInput type="number" placeholder="Quantity" min="1" max="5" formControlName="quantity"
-                     id="quantity">
-              <mat-hint align="end">Not more then 5</mat-hint>
-              <mat-error *ngIf="hasError('quantity', 'required')">Quantity is required</mat-error>
-              <mat-error *ngIf="hasError('quantity', 'maxlength')">You have more than 10 characters</mat-error>
-            </mat-form-field>
-          </mat-card-content>
-
-          <mat-card-actions align="center">
-            <button mat-raised-button color="primary" [disabled]="!chooseForm.valid">Confirm</button>
-          </mat-card-actions>
-        </form>
-      </mat-card>
-    </div>
-
-    <div class="col-lg-12" *ngIf="formShow">
-      <mat-card>
-        <mat-card-title>Payment</mat-card-title>
+    <div class="col-lg-12">
+      <mat-card *ngIf="this.response =='' && this.data.fromComponent == 'borrow'">
+        <mat-card-title>Confirmation</mat-card-title>
 
         <mat-card-content>
 
-          <mat-label> Stock Name : {{stockName}}</mat-label>
-          <br>
-          <mat-label> Stock Exchange Name : {{stockExchangeName}}</mat-label>
-          <br>
-          <mat-label> Quantity : {{quantity}}</mat-label>
-          <br>
-          <mat-label> Order Price :₹ {{price}} / -</mat-label>
-          <br>
-          <mat-label> Total Order Value : ₹ {{totalCurrentprice}} / -</mat-label>
-          <br>
-
-
-          <mat-label style="text-decoration: line-through;"> Order Value : ₹ {{totalPrice}} / -</mat-label>
-          <br>
-
-          <mat-label style="color: red">Current Order Value : ₹ {{currentPrice}} / -</mat-label>
+          Are you sure you want to perform this action??
         </mat-card-content>
 
         <mat-card-actions align="center">
-          <button mat-raised-button color="primary" (click)="paymentMent('Confirmed')">Buy</button>
-          <button mat-raised-button color="warn" (click)="paymentMent('Cancelled')">Cancel</button>
+          <button mat-raised-button color="primary"
+            (click)="confirm(this.data.location, this.data.location.bookId)">Confirm</button>
+          <button mat-raised-button color="warn" (click)="cancel()">Cancel</button>
         </mat-card-actions>
-
-
       </mat-card>
+
+      <mat-card *ngIf="this.response!=''">
+        <mat-card-title>Confirmation</mat-card-title>
+
+        <mat-card-content>
+
+          Are you sure you want to perform this action??
+        </mat-card-content>
+
+        <mat-card-actions align="center">
+
+          <button mat-raised-button color="warn" (click)="cancel()">Ok</button>
+        </mat-card-actions>
+      </mat-card>
+
+
     </div>
   </div>
 </div>

@@ -60,7 +60,7 @@ export class RegisterComponent implements OnInit {
       "mobileNumber": this.registerForm.value.mobileNumber,
       "lastName": this.registerForm.value.lastName
     };
-    this.http.post('http://10.117.189.134:8082/lms/api/register', reqObj).subscribe((response) => {
+    this.http.post(environment.baseUrl + '/lms/api/register', reqObj).subscribe((response) => {
       if (response) {
         this.response = true;
         this.data = response;

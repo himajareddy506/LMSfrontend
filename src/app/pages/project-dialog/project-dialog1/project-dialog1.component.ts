@@ -1,9 +1,11 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
-import {MatSnackBar} from "@angular/material/snack-bar"
-import {CommunicationServiceService} from "../../../service/communication_service/communication-service.service";
-import {Router} from "@angular/router";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
+import { MatSnackBar } from "@angular/material/snack-bar"
+import { CommunicationServiceService } from "../../../service/communication_service/communication-service.service";
+import { Router } from "@angular/router";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-project-dialog1',
@@ -14,70 +16,78 @@ export class ProjectDialog1Component implements OnInit {
   chooseForm: FormGroup;
   /* istanbul ignore next */
   formShow: boolean = false;
-  stockName: string;
 
-  getConfirmResult: any;
-  payConfirmResult: any;
-  stockExchangeName: string;
-  quantity: any;
-  currentPrice: any;
-  stockId: any;
-  totalCurrentprice: any;
-  price: any;
-  totalPrice: any;
-  userId: any;
+  userId: number;
+  err: boolean;
+  response: string;
   /* istanbul ignore next */
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _snackBar: MatSnackBar, public dialogRef: MatDialogRef<ProjectDialog1Component>, private _service: CommunicationServiceService, private route: Router) {
-    this.chooseForm = new FormGroup({
-      // productPrice: new FormControl('', [Validators.required, Validators.maxLength(5)]),
-      quantity: new FormControl('', [Validators.required, Validators.maxLength(1), Validators.max(5)])
-    });
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _snackBar: MatSnackBar, private router: Router,
+    private http: HttpClient, public dialogRef: MatDialogRef<ProjectDialog1Component>, private _service: CommunicationServiceService, private route: Router) {
+
   }
 
   /* istanbul ignore next */
   ngOnInit() {
-    // console.log(this.data);
-  }
 
-  
-  public hasError = (controlName: string, errorName: string) => {
-    return this.chooseForm.controls[controlName].hasError(errorName);
-  }
+    console.log(this.data.location);
+    if (this.data.fromComponent == 'borrow') {
 
-  /* istanbul ignore next */
-  async confirm(chooseform) {
-    // console.log(this.data.location, chooseform);
-    if (this.chooseForm.valid) {
-      this.formShow = true;
+      this.response = '';
 
-      //this.getConfirmResult = await this._service.confirmingStocks(this.data.location, chooseform)
-      // console.log(this.getConfirmResult);
-      if (!this.getConfirmResult) {
+    } else if (this.data.fromComponent == 'request') {
 
-      } else {
-        this.stockId = this.getConfirmResult.myStockId;
-        this.stockName = this.getConfirmResult.stockName;
-        this.quantity = this.getConfirmResult.quantity;
-        this.price = this.getConfirmResult.price;
-        this.stockExchangeName = this.getConfirmResult.stockExchangeName;
-        this.currentPrice = this.getConfirmResult.currentPrice;
-        this.totalPrice = this.getConfirmResult.totalPrice;
-        this.totalCurrentprice = this.getConfirmResult.totalCurrentPrice;
-      }
+      this.request();
     }
-    return true;
   }
 
-  /* istanbul ignore next */
-  async paymentMent(status) {
-    this.userId = localStorage.getItem('userId');
-    //this.payConfirmResult = await this._service.confirmedStocks(this.stockIdd);
+  confirm = () => {
+    var reqObj1 = {
+      "bookId": this.data.location.bookId,
+      "UserId": sessionStorage.getItem('userId')
+    };
 
-    if (!this.payConfirmResult) {
+    this.http
+      .post(environment.baseUrl + '/lms/api/book/request', reqObj1)
+      .subscribe((res: Response) => {
+        console.log(res);
+        // alert(res['message'])
+        sessionStorage.setItem("userId", res['userId']);
+        this.route.navigate(['/dashboard']);
 
-    } else {
-      this.dialogRef.close('NAN');
-      this.route.navigateByUrl('/main/orders');
-    }
+        this.response = res['message'];
+
+      }, (err) => {
+        this.err = true;
+        console.log("rerror", err)
+        alert(err.message);
+      });
+  }
+
+  request = () => {
+    var reqObj1 = {
+      "bookId": this.data.location.bookId,
+      "UserId": sessionStorage.getItem('userId')
+    };
+
+    this.http
+      .post(environment.baseUrl + '/lms/api/book/request', reqObj1)
+      .subscribe((res: Response) => {
+        console.log(res);
+        // alert(res['message'])
+        sessionStorage.setItem("userId", res['userId']);
+        this.route.navigate(['/dashboard']);
+
+        this.response = res['message'];
+
+      }, (err) => {
+        this.err = true;
+        console.log("rerror", err)
+        alert(err.message);
+      });
+  }
+
+  cancel = () => {
+    this.dialogRef.close();
+    this.route.navigate(['/dashboard']);
   }
 }

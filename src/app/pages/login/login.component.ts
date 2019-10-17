@@ -17,11 +17,10 @@ export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     loading = false;
     submitted = false;
-    accountNumber: any;
     returnUrl: string;
     data1: any;
-    loginId: any;
-    passcode: any;
+    emailId: string;
+    passcode: string;
     err = false;
 
     constructor(
@@ -69,7 +68,7 @@ export class LoginComponent implements OnInit {
         };
 
         this.http
-            .post('http://10.117.189.134:8082/lms/api/login', this.loginForm.value)
+            .post(environment.baseUrl + '/lms/api/login', this.loginForm.value)
             .subscribe((res: Response) => {
                 console.log(res);
                 // alert(res['message'])

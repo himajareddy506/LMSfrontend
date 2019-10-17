@@ -4,8 +4,6 @@
 
 export const environment = {
   production: false,
-  // apibaseUrl: 'http://10.117.189.153:9900/stockX/api/',
-  // headerKey: {'Content-Type': 'application/json'}
   baseUrl: 'http://10.117.189.134:8082'
 };
 

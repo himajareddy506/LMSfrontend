@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-project-landing',
@@ -14,7 +14,7 @@ export class ProjectLandingComponent implements OnInit {
   ngOnInit() {
   }
 
-  openDialog(load) {
+  openDialog = (load) => {
     if (load == 'Register') {
       //this.showScreen = true;
       this.route.navigateByUrl('/register');

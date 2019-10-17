@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <mat-card-title style="align-content: center">Borrow Book History</mat-card-title>
+            <mat-card-title style="align-content: center">Lend Book History</mat-card-title>
             <br><br><br>
             <div class="mat-elevation-z8">
                 <table>
@@ -11,21 +11,19 @@
                         </th>
                         <th>Book Author
                         </th>
-                        <th>Borrowed Date
+                        <th>Lend Date
                         </th>
-                        <th>Released Date
+
 
                     </tr>
-                    <!-- <tr *ngFor="let account of accountHistory">
-                        <td>{{account.transactionDate}}
+                    <tr *ngFor="let account of lendSummary">
+                        <td>{{account.bookName}}
                         </td>
-                        <td>{{account.toAccount}}
+                        <td>{{account.author}}
                         </td>
-                        <td>{{account.transactionType}}
+                        <td>{{account.lendDate}}
                         </td>
-                        <td>{{account.amount}}
-                        </td>
-                    </tr> -->
+                    </tr>
                 </table>
                 <mat-paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons></mat-paginator>
             </div>

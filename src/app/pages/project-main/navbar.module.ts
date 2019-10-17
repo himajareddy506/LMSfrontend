@@ -35,6 +35,7 @@ import { ProjectDialog1Component } from "../project-dialog/project-dialog1/proje
 import { BorrowHistoryComponent } from './borrow-history/borrow-history.component';
 import { BookListComponent } from './book-list/book-list.component';
 import { LendHistoryComponent } from './lend-history/lend-history.component';
+import { AddBookComponent } from './add-book/add-book.component';
 // import { ProjectLandingComponent } from "../project-landing/project-landing.component";
 
 
@@ -47,7 +48,8 @@ import { LendHistoryComponent } from './lend-history/lend-history.component';
     ProjectDialog1Component,
     BorrowHistoryComponent,
     BookListComponent,
-    LendHistoryComponent
+    LendHistoryComponent,
+    AddBookComponent
   ],
   imports: [
     MatToolbarModule,

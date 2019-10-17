@@ -11,14 +11,6 @@ const routes: Routes = [
     path: '',
     component: ProjectLandingComponent
   },
-  // {
-  //   path: 'register',
-  //   component: ProjectRegisterationComponent
-  // },
-  //  {
-  //   path: 'login',
-  //   component: ProjectLoginComponent
-  // },
   {
     path: 'register',
     component: RegisterComponent

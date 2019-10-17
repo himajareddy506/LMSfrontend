@@ -29,15 +29,7 @@ export class ProjectDialog1Component implements OnInit {
   /* istanbul ignore next */
   ngOnInit() {
 
-    console.log(this.data.location);
-    // if (this.data.fromComponent == 'action') {
-
-    //   this.response = '';
-
-    // } else if (this.data.fromComponent == 'request') {
-
-    //   this.request();
-    // }
+    // console.log(this.data.location);
   }
 
   confirm = () => {
@@ -50,13 +42,9 @@ export class ProjectDialog1Component implements OnInit {
       this.http
         .post(environment.baseUrl + '/lms/api/book/borrow', reqObj1)
         .subscribe((res: Response) => {
-          console.log(res);
           alert(res['message'])
-          // sessionStorage.setItem("userId", res['userId']);
           this.dialogRef.close();
           this.route.navigate(['/dashboard']);
-
-          // this.response = res['message'];
 
         }, (err) => {
           this.err = true;
@@ -70,14 +58,10 @@ export class ProjectDialog1Component implements OnInit {
       this.http
         .post(environment.baseUrl + '/lms/api/book/request', reqObj1)
         .subscribe((res: Response) => {
-          console.log(res);
           alert(res['message'])
-          // sessionStorage.setItem("userId", res['userId']);
           this.dialogRef.close();
           this.route.navigate(['/dashboard']);
-
-          // this.response = res['message'];
-
+          console.log(this.data.location.status);
         }, (err) => {
           this.err = true;
           console.log("rerror", err)

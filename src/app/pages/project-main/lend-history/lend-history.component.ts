@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LendHistoryComponent implements OnInit {
   err: boolean;
-  userId: any;
+  userId: number;
   lendSummary: object = [];
 
   constructor(private router: Router,
@@ -18,7 +18,7 @@ export class LendHistoryComponent implements OnInit {
     private http: HttpClient) { }
 
   ngOnInit() {
-    this.userId = sessionStorage.getItem('userId');
+    this.userId = parseInt(sessionStorage.getItem("userId"));
     this.http
       .get(environment.baseUrl + `/lms/api/book/${this.userId}/lendSummary`)
       .subscribe((res: any) => {

@@ -19,12 +19,12 @@
         </mat-card-actions>
       </mat-card>
 
-      <mat-card *ngIf="this.response!='Your request for availing the book is submitted successfully'">
+      <mat-card>
         <mat-card-title>Confirmation</mat-card-title>
 
         <mat-card-content>
 
-          Please confirm your Interest??
+          Please confirm your Interest on "{{this.data.location.bookName}}" ??
         </mat-card-content>
 
         <mat-card-actions align="center">

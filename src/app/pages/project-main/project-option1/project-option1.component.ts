@@ -90,7 +90,7 @@ export class ProjectOption1Component implements OnInit {
 
   //  Release Book Click function
   releaseBook = (element, bookName, author, bookId, lendDate, status) => {
-
+    console.log(event);
     this.openDialogQuantity(element, bookName, author, bookId, lendDate, status, 'request');
   }
 

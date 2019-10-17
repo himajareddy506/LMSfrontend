@@ -25,6 +25,7 @@ export class AddBookComponent implements OnInit {
   emailId: string;
   passcode: string;
   err = false;
+  userId: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,6 +37,8 @@ export class AddBookComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userId = sessionStorage.getItem('userId');
+    console.log(this.userId);
     this.addForm = this.formBuilder.group({
       author: ['', [
         Validators.required]],
@@ -64,17 +67,16 @@ export class AddBookComponent implements OnInit {
 
     console.log(this.addForm);
     var reqObj1 = {
+      "userId": this.userId,
       "author": this.addForm.value.author,
       "bookName": this.addForm.value.bookName,
-      "userId": sessionStorage.getItem('userId')
+
     };
 
     this.http
-      .post(environment.baseUrl + '/lms/api/book/add', this.addForm.value)
+      .post(environment.baseUrl + '/lms/api/book/add', reqObj1)
       .subscribe((res: Response) => {
         console.log(res);
-        // alert(res['message'])
-        // sessionStorage.setItem("userId", res['userId']);
         this.route.navigate(['/dashboard']);
 
       }, (err) => {

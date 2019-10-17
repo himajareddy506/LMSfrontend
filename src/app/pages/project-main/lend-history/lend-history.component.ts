@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 export class LendHistoryComponent implements OnInit {
   err: boolean;
   userId: any;
-  lendSummary: any;
+  lendSummary: object = [];
 
   constructor(private router: Router,
     private route: Router,

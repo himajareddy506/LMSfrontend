@@ -48,7 +48,7 @@ export class ProjectOption1Component implements OnInit {
       .get(environment.baseUrl + '/lms/api/books')
       .subscribe((res: Response) => {
         console.log(res);
-        this.dataSource = res['bookList']
+        this.dataSource = res['bookList'];
         this.dataSource = new MatTableDataSource<PeriodicElement>(this.dataSource);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -63,12 +63,15 @@ export class ProjectOption1Component implements OnInit {
   }
 
 
+  //  apply Filtering
 
   applyFilter = (filterValue: string) => {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
+
+  //  apply snackBar
 
   openSnackBar = (message: string, action: string) => {
     this._snackBar.open(message, action, {
@@ -77,24 +80,32 @@ export class ProjectOption1Component implements OnInit {
   }
 
 
-
+  //  Borrow Book Click function
   borrowBook = (element, bookName, author, bookId) => {
     this.openDialogQuantity(element, bookName, author, bookId, 'borrow');
   }
 
+  //  Release Book Click function
   releaseBook = (element, bookName, author, bookId) => {
     this.openDialogQuantity(element, bookName, author, bookId, 'request');
   }
 
+  //  Add Book Click function
+
   addBook = () => {
     this.route.navigate(['/addbook']);
   }
+
+  //  Open Dilgoue Popup
+
   openDialogQuantity = (element, bookName, author, bookId, action): void => {
     const dialogRef = this.dialog.open(ProjectDialog1Component, {
       height: 'auto',
       width: 'auto',
       data: { location: element, fromComponent: action }
     });
+
+    // Close Dilogue Window
 
     dialogRef.afterClosed().subscribe(result => {
       //console.log('The dialog was closed');

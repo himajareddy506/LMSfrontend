@@ -14,9 +14,9 @@
       <mat-nav-list *ngIf="isHandset$ | async">
         <a mat-list-item routerLink="/dashboard" [routerLinkActive]="'is-active'" (click)="drawer.toggle()">Available
           Books</a>
-        <a mat-list-item routerLink="/borrowhistory" [routerLinkActive]="'is-active'" (click)="drawer.toggle()">Borrow
-          Book History</a>
-        <a mat-list-item routerLink="/lendhistory" [routerLinkActive]="'is-active'" (click)="drawer.toggle()">Lend Book
+        <a mat-list-item routerLink="/borrowhistory" [routerLinkActive]="'is-active'" (click)="drawer.toggle()">Borrowed
+          History</a>
+        <a mat-list-item routerLink="/lendhistory" [routerLinkActive]="'is-active'" (click)="drawer.toggle()">Lent
           History</a>
         <a mat-list-item routerLink="/addbook" [routerLinkActive]="'is-active'" (click)="drawer.toggle()">Add Book</a>
       </mat-nav-list>
@@ -24,8 +24,8 @@
       <!--Web Menu--->
       <mat-nav-list *ngIf="!(isHandset$ | async)">
         <a mat-list-item routerLink="/dashboard" [routerLinkActive]="'is-active'">Available Books</a>
-        <a mat-list-item routerLink="/borrowhistory" [routerLinkActive]="'is-active'">Borrow Book History</a>
-        <a mat-list-item routerLink="/lendhistory" [routerLinkActive]="'is-active'">Lend Book History</a>
+        <a mat-list-item routerLink="/borrowhistory" [routerLinkActive]="'is-active'">Borrowed History</a>
+        <a mat-list-item routerLink="/lendhistory" [routerLinkActive]="'is-active'">Lent History</a>
         <a mat-list-item routerLink="/addbook" [routerLinkActive]="'is-active'">Add Book</a>
       </mat-nav-list>
 

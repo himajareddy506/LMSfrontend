@@ -21,7 +21,7 @@ export interface PeriodicElement {
 })
 export class ProjectOption1Component implements OnInit {
 
-  displayedColumns: string[] = ['Id', 'position', 'name', 'action'];
+  displayedColumns: string[] = ['Id', 'position', 'name', 'date', 'status', 'action'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   dataSource: any;
@@ -48,11 +48,12 @@ export class ProjectOption1Component implements OnInit {
       .get(environment.baseUrl + '/lms/api/books')
       .subscribe((res: Response) => {
         console.log(res);
-        this.dataSource = res['bookList'];
+        this.dataSource = res;
         this.dataSource = new MatTableDataSource<PeriodicElement>(this.dataSource);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        sessionStorage.setItem("userId", sessionStorage.getItem('userId'));
+        //sessionStorage.setItem("userId", sessionStorage.getItem('userId'));
+        // sessionStorage.setItem("userId", res['userId']);
 
 
       }, (err) => {
@@ -81,13 +82,16 @@ export class ProjectOption1Component implements OnInit {
 
 
   //  Borrow Book Click function
-  borrowBook = (element, bookName, author, bookId) => {
-    this.openDialogQuantity(element, bookName, author, bookId, 'borrow');
+  borrowBook = (element, bookName, author, bookId, lendDate, status) => {
+
+    this.openDialogQuantity(element, bookName, author, bookId, lendDate, status, 'borrow');
+
   }
 
   //  Release Book Click function
-  releaseBook = (element, bookName, author, bookId) => {
-    this.openDialogQuantity(element, bookName, author, bookId, 'request');
+  releaseBook = (element, bookName, author, bookId, lendDate, status) => {
+
+    this.openDialogQuantity(element, bookName, author, bookId, lendDate, status, 'request');
   }
 
   //  Add Book Click function
@@ -98,7 +102,7 @@ export class ProjectOption1Component implements OnInit {
 
   //  Open Dilgoue Popup
 
-  openDialogQuantity = (element, bookName, author, bookId, action): void => {
+  openDialogQuantity = (element, bookName, author, bookId, lendDate, status, action): void => {
     const dialogRef = this.dialog.open(ProjectDialog1Component, {
       height: 'auto',
       width: 'auto',
@@ -111,4 +115,5 @@ export class ProjectOption1Component implements OnInit {
       //console.log('The dialog was closed');
     });
   }
+
 }

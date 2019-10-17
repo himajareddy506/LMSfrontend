@@ -65,7 +65,8 @@ export class AddBookComponent implements OnInit {
     console.log(this.addForm);
     var reqObj1 = {
       "author": this.addForm.value.author,
-      "bookName": this.addForm.value.bookName
+      "bookName": this.addForm.value.bookName,
+      "userId": sessionStorage.getItem('userId')
     };
 
     this.http
@@ -73,7 +74,7 @@ export class AddBookComponent implements OnInit {
       .subscribe((res: Response) => {
         console.log(res);
         // alert(res['message'])
-        sessionStorage.setItem("userId", res['userId']);
+        // sessionStorage.setItem("userId", res['userId']);
         this.route.navigate(['/dashboard']);
 
       }, (err) => {

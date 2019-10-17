@@ -1,8 +1,10 @@
+<!-- Confirmation Dilogue Component -->
+
 <div class="container">
   <div class="row">
 
     <div class="col-lg-12">
-      <mat-card *ngIf="this.response =='' && this.data.fromComponent == 'borrow'">
+      <mat-card *ngIf="this.data.fromComponent == 'action'">
         <mat-card-title>Confirmation</mat-card-title>
 
         <mat-card-content>
@@ -12,22 +14,23 @@
 
         <mat-card-actions align="center">
           <button mat-raised-button color="primary"
-            (click)="confirm(this.data.location, this.data.location.bookId)">Confirm</button>
+            (click)="confirm(this.data.location, this.data.location.bookId, this.data.location.status)">Confirm</button>
           <button mat-raised-button color="warn" (click)="cancel()">Cancel</button>
         </mat-card-actions>
       </mat-card>
 
-      <mat-card *ngIf="this.response!=''">
+      <mat-card *ngIf="this.response!='Your request for availing the book is submitted successfully'">
         <mat-card-title>Confirmation</mat-card-title>
 
         <mat-card-content>
 
-          Are you sure you want to perform this action??
+          Please confirm your Interest??
         </mat-card-content>
 
         <mat-card-actions align="center">
-
-          <button mat-raised-button color="warn" (click)="cancel()">Ok</button>
+          <button mat-raised-button color="primary"
+            (click)="confirm(this.data.location, this.data.location.bookId, this.data.location.status)">Confirm</button>
+          <button mat-raised-button color="warn" (click)="cancel()">Cancel</button>
         </mat-card-actions>
       </mat-card>
 

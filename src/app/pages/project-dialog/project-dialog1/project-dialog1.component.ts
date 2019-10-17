@@ -30,60 +30,71 @@ export class ProjectDialog1Component implements OnInit {
   ngOnInit() {
 
     console.log(this.data.location);
-    if (this.data.fromComponent == 'borrow') {
+    // if (this.data.fromComponent == 'action') {
 
-      this.response = '';
+    //   this.response = '';
 
-    } else if (this.data.fromComponent == 'request') {
+    // } else if (this.data.fromComponent == 'request') {
 
-      this.request();
-    }
+    //   this.request();
+    // }
   }
 
   confirm = () => {
     var reqObj1 = {
       "bookId": this.data.location.bookId,
-      "UserId": sessionStorage.getItem('userId')
+      "userId": parseInt(sessionStorage.getItem("userId"))
     };
+    if (this.data.location.status === 'Available') {
+      console.log(this.data.location.status);
+      this.http
+        .post(environment.baseUrl + '/lms/api/book/borrow', reqObj1)
+        .subscribe((res: Response) => {
+          console.log(res);
+          alert(res['message'])
+          // sessionStorage.setItem("userId", res['userId']);
+          this.dialogRef.close();
+          this.route.navigate(['/dashboard']);
 
-    this.http
-      .post(environment.baseUrl + '/lms/api/book/request', reqObj1)
-      .subscribe((res: Response) => {
-        console.log(res);
-        // alert(res['message'])
-        sessionStorage.setItem("userId", res['userId']);
-        this.route.navigate(['/dashboard']);
+          // this.response = res['message'];
 
-        this.response = res['message'];
+        }, (err) => {
+          this.err = true;
+          console.log("rerror", err)
+          alert(err.message);
+        });
+      console.log(reqObj1);
+    } else if (this.data.location.status === 'Availed') {
 
-      }, (err) => {
-        this.err = true;
-        console.log("rerror", err)
-        alert(err.message);
-      });
+      console.log(this.data.location.status);
+      this.http
+        .post(environment.baseUrl + '/lms/api/book/request', reqObj1)
+        .subscribe((res: Response) => {
+          console.log(res);
+          alert(res['message'])
+          // sessionStorage.setItem("userId", res['userId']);
+          this.dialogRef.close();
+          this.route.navigate(['/dashboard']);
+
+          // this.response = res['message'];
+
+        }, (err) => {
+          this.err = true;
+          console.log("rerror", err)
+          alert(err.message);
+        });
+      console.log(reqObj1);
+    }
+
   }
 
   request = () => {
     var reqObj1 = {
       "bookId": this.data.location.bookId,
-      "UserId": sessionStorage.getItem('userId')
+      "userId": sessionStorage.getItem('userId')
     };
 
-    this.http
-      .post(environment.baseUrl + '/lms/api/book/request', reqObj1)
-      .subscribe((res: Response) => {
-        console.log(res);
-        // alert(res['message'])
-        sessionStorage.setItem("userId", res['userId']);
-        this.route.navigate(['/dashboard']);
 
-        this.response = res['message'];
-
-      }, (err) => {
-        this.err = true;
-        console.log("rerror", err)
-        alert(err.message);
-      });
   }
 
   cancel = () => {
